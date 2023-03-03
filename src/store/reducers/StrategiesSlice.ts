@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { StrategieDataset } from "../../types/StrategieDataset";
 
+interface StrategiesData {
+  title: string;
+  data_usd: StrategieDataset[];
+  data_btc: StrategieDataset[];
+}
+
 interface StrategiesState {
   title: string;
   usdData: StrategieDataset[];
@@ -15,7 +21,7 @@ const initialState: StrategiesState = {
   isLoading: false,
 };
 
-export const fetchStrategie = createAsyncThunk<StrategiesState, number>(
+export const fetchStrategie = createAsyncThunk<StrategiesData, number>(
   "getStrategie",
   async (numberStratergie, { rejectWithValue }) => {
     const response = await fetch(
@@ -40,8 +46,8 @@ export const StrategiesSlice = createSlice({
     builder.addCase(fetchStrategie.fulfilled, (state, action) => {
       state.isLoading = false;
       state.title = action.payload.title;
-      state.usdData = action.payload.usdData;
-      state.btcData = action.payload.btcData;
+      state.btcData = action.payload.data_btc;
+      state.usdData = action.payload.data_usd;
     });
     builder.addCase(fetchStrategie.rejected, (state, action) => {
       state.isLoading = false;

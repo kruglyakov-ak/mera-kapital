@@ -4,6 +4,7 @@ import { Button } from "../../components";
 import s from "./starategieDashboard.module.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchStrategie } from "../../store/reducers/StrategiesSlice";
+import ApexChart from "../../components/ApexCharts/ApexCharts";
 
 interface StarategieDashboardProps {
   theme: "light" | "dark";
@@ -15,12 +16,10 @@ export const StarategieDashboard: FC<StarategieDashboardProps> = ({
   clickThemeButtonHandler,
 }) => {
   const dispatch = useAppDispatch();
-  const { btcData, isLoading, title, usdData } = useAppSelector(
-    (state) => state.strategies
-  );
+  const { isLoading, btcData, title, usdData } = useAppSelector((state) => state.strategies);
   const [currentStrategie, setCurrentStrategie] = useState(1);
   const [currentCurrency, setCurrentCurrency] = useState("USD");
-
+ 
   const clickStrategieButtonHandler = ({
     currentTarget,
   }: MouseEvent<HTMLButtonElement>) => {
@@ -93,6 +92,10 @@ export const StarategieDashboard: FC<StarategieDashboardProps> = ({
           BTC
         </Button>
         <p>{isLoading ? "Идет загрузка..." : title ? title : "Комментарий"}</p>
+      </div>
+
+      <div className={s.chartWrapp}>
+        <ApexChart currency={currentCurrency} dataset={currentCurrency === "USD" ? usdData : btcData} />
       </div>
     </div>
   );
