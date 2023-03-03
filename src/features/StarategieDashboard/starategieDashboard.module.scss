@@ -3,8 +3,103 @@
 .wrapper {
   width: 667px;
   height: 429px;
+  position: relative;
+  padding: 16px 28px;
+
+  & .themeButton {
+    border: none;
+    background: none;
+    padding: 0;
+    position: absolute;
+    cursor: pointer;
+    top: 14px;
+    right: 41px;
+    width: 45px;
+    height: 19px;
+    display: flex;
+    justify-content: end;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 100%;
+    }
+  }
+
+  & .startegieButtons {
+    display: flex;
+
+    & p {
+      padding-right: 13px;
+    }
+
+    & .reload {
+      width: 100px;
+      margin-left: 26px;
+    }
+  }
+
+  & .currencyButtons {
+    padding-top: 20px;
+    display: flex;
+
+    & p {
+      padding-right: 55px;
+    }
+  }
+
+  .button {
+    width: 52px;
+
+    &:not(:last-child) {
+      margin-right: 16px;
+    }
+  }
+}
+
+.light {
   background-color: $color-bg;
   border: 2px solid $color-dark;
 
-  
+  & .themeButton {
+    border: 3px solid $color-dark;
+
+    &::after {
+      background-color: $color-dark;
+    }
+  }
+
+  .button {
+    border: 2px solid $color-dark;
+
+    &.active {
+      background-color: $color-dark;
+      color: $color-light;
+    }
+  }
+}
+
+.dark {
+  background-color: $color-dark;
+  border: 2px solid $color-bg;
+
+  & .themeButton {
+    border: 3px solid $color-light;
+    color: $color-dark;
+
+    &::after {
+      background-color: $color-light;
+    }
+  }
+
+  .button {
+    border: 2px solid $color-light;
+    color: $color-light;
+
+    &.active {
+      background-color: $color-light;
+      color: $color-dark;
+    }
+  }
 }
