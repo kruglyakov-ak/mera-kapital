@@ -55,11 +55,8 @@ class ApexChart extends React.Component<ApexChartProps, Props> {
           },
         },
         yaxis: {
-          labels: {
-            formatter: function (val: number) {
-              return (val / 1000000).toFixed(0);
-            },
-          },
+          min: Math.min(...this.dataset.map((data) => data.value)),
+          max: Math.max(...this.dataset.map((data) => data.value)),
           title: {
             text: "Price",
           },
@@ -121,11 +118,8 @@ class ApexChart extends React.Component<ApexChartProps, Props> {
               },
             },
             yaxis: {
-              labels: {
-                formatter: function (val: number) {
-                  return (val / 1000000).toFixed(0);
-                },
-              },
+              min: Math.min(...this.props.dataset.map((data) => data.value)),
+              max: Math.max(...this.props.dataset.map((data) => data.value)),
               title: {
                 text: "Price",
               },
