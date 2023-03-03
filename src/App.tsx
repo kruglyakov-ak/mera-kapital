@@ -1,5 +1,7 @@
+import { StarategieDashboard } from "./features";
+
 function App() {
-  return <div></div>;
+  return <StarategieDashboard />;
 }
 
 export default App;
