@@ -66,6 +66,9 @@
 .light {
   background-color: $color-bg;
   border: 2px solid $color-dark;
+  .chartWrapp {
+    background-color: $color-light;
+  }
 
   & .themeButton {
     border: 3px solid $color-dark;
@@ -93,6 +96,9 @@
 .dark {
   background-color: $color-dark;
   border: 2px solid $color-bg;
+  .chartWrapp {
+    background-color: $color-bg;
+  }
 
   & .themeButton {
     border: 3px solid $color-light;
