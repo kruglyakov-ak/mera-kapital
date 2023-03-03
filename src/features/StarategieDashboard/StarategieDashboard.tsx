@@ -1,7 +1,9 @@
-import { FC, useState, MouseEvent } from "react";
+import { FC, useState, MouseEvent, useEffect } from "react";
 import cn from "classnames";
 import { Button } from "../../components";
 import s from "./starategieDashboard.module.scss";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { fetchStrategie } from "../../store/reducers/StrategiesSlice";
 
 interface StarategieDashboardProps {
   theme: "light" | "dark";
@@ -12,6 +14,10 @@ export const StarategieDashboard: FC<StarategieDashboardProps> = ({
   theme,
   clickThemeButtonHandler,
 }) => {
+  const dispatch = useAppDispatch();
+  const { btcData, isLoading, title, usdData } = useAppSelector(
+    (state) => state.strategies
+  );
   const [currentStrategie, setCurrentStrategie] = useState(1);
   const [currentCurrency, setCurrentCurrency] = useState("USD");
 
@@ -28,6 +34,14 @@ export const StarategieDashboard: FC<StarategieDashboardProps> = ({
       currentTarget.textContent ? currentTarget.textContent : "USD"
     );
   };
+
+  const clickReloadButtonHandler = () => {
+    dispatch(fetchStrategie(currentStrategie));
+  };
+
+  useEffect(() => {
+    dispatch(fetchStrategie(currentStrategie));
+  }, [currentStrategie, dispatch]);
 
   return (
     <div className={cn(s.wrapper, s[theme])}>
@@ -56,7 +70,12 @@ export const StarategieDashboard: FC<StarategieDashboardProps> = ({
         >
           3
         </Button>
-        <Button className={cn(s.button, s.reload)}>Reload</Button>
+        <Button
+          className={cn(s.button, s.reload)}
+          onClick={clickReloadButtonHandler}
+        >
+          Reload
+        </Button>
       </div>
 
       <div className={s.currencyButtons}>
@@ -73,7 +92,7 @@ export const StarategieDashboard: FC<StarategieDashboardProps> = ({
         >
           BTC
         </Button>
-        <p>Комментарий</p>
+        <p>{isLoading ? "Идет загрузка..." : title ? title : "Комментарий"}</p>
       </div>
     </div>
   );
